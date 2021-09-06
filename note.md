@@ -1,6 +1,6 @@
-## 1.twoSum
+## 1、twoSum
 
-#### 题目
+* **题目**
 
 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
 
@@ -11,7 +11,7 @@
 来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/two-sum
 
-#### 题解
+* **题解**
 
 首先创建一个map 数组，遍历nums 数组，获取每个元素相对target 的补数
 
@@ -19,7 +19,7 @@
 
 2，如果没有找到，则将该元素的值和下标添入到map 中
 
-#### 代码
+* **代码**
 
 ~~~js
 var twoSum = function(nums, target) {
@@ -37,6 +37,72 @@ var twoSum = function(nums, target) {
 };
 ~~~
 
-#### 总结
+* **理解**
 
-还对map 使用不太熟悉呢，需要加强练习，今天关注的up主讲的好好哦，听懂了，希望别是过几天又忘了哈哈
+还对map 使用不太熟悉呢，需要加强练习，今天关注的up主讲的好好哦，听懂了（但又好像没有完全听懂==），希望别是过几天又忘了哈哈（0905）
+
+## 2、addTwoNumbers
+
+* **题目**
+
+  给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+
+  请你将两个数相加，并以相同形式返回一个表示和的链表。
+
+  你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+
+  ~~~js
+  示例：
+  输入：l1 = [2,4,3], l2 = [5,6,4]
+  输出：[7,0,8]
+  解释：342 + 465 = 807.
+  ~~~
+
+  
+
+  来源：力扣（LeetCode）
+  链接：https://leetcode-cn.com/problems/add-two-numbers
+
+* **题解**
+
+  创建一个新的链表dummy，l1 、l2 不为空时，将 l1 和 l2 中的值加入sum 中，有进位的话设carry 为1 ，链表依次往后推
+
+* **代码**
+
+  ~~~js
+  /**
+   * @param {ListNode} l1
+   * @param {ListNode} l2
+   * @return {ListNode}
+   */
+  var addTwoNumbers = function(l1, l2) {
+      let dummy = new ListNode();
+      let curr = dummy
+      let carry = 0;
+      while (l1 !== null || l2 != null) {
+          let sum = 0
+          if (l1 != null) {
+              sum += l1.val
+              l1 = l1.next
+          }
+          if (l2 != null) {
+              sum += l2.val
+              l2 = l2.next
+          }
+          sum += carry
+          curr.next = new ListNode(sum % 10)
+          carry = sum >= 10 ? 1 : 0
+          curr = curr.next
+      }
+      if (carry > 0) {
+          curr.next = new ListNode(carry)
+      }
+      return dummy.next
+  };
+  ~~~
+
+  
+
+* **理解**
+
+  感觉通过这个问题好像点醒了我对链表的认识nice，一个节点一个节点往后推也不是很难理解嘛，听这个up主一讲茅塞顿开太棒啦，对了，发现一点 js 中的 7/10=0.7而不是0 （0906）
