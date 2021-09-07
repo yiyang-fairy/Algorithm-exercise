@@ -106,3 +106,64 @@ var twoSum = function(nums, target) {
 * **理解**
 
   感觉通过这个问题好像点醒了我对链表的认识nice，一个节点一个节点往后推也不是很难理解嘛，听这个up主一讲茅塞顿开太棒啦，对了，发现一点 js 中的 7/10=0.7而不是0 （0906）
+
+## 3、lengthOfLongestSubstring
+
+* **题目**
+
+  给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。 
+
+  示例 1:
+
+  输入: s = "abcabcbb"
+  输出: 3 
+  解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+
+  来源：力扣（LeetCode）
+  链接：https://leetcode-cn.com/problems/longest-substring-without-repeating-characters
+
+* **题解**
+
+  sliding window 滑动窗口  
+
+  创建一个 set
+
+  用两个指针 i，j，首先i, j 都指向s 第一个元素，接着 i 顺序遍历 s 将s[i] 放进 set 中，然后更新最大不重复字符的数量
+
+  比较set 中是否有s[i] ，有则删除set 中的 s[j] ，j 指针向后移动，直到set 中没有s[i]
+
+* **代码**
+
+  ~~~js
+  /**
+   * @param {string} s
+   * @return {number}
+   */
+  var lengthOfLongestSubstring = function(s) {
+      const set = new Set()
+      let maxLength = 0
+      let i = 0,
+          j = 0
+      if (s.length == 0) return 0
+      for (i; i < s.length; i++) {
+          if (set.has(s[i]) == false) {
+              set.add(s[i])
+              maxLength = Math.max(maxLength, set.size)
+          } else {
+              while (set.has(s[i])) {
+                  set.delete(s[j])
+                  j++
+              }
+              set.add(s[i])
+          }
+  
+      }
+      return maxLength
+  };
+  ~~~
+
+  
+
+* **理解**
+
+   let i,j =0 这样子写 i 是没有被赋值，要写成 let i =0, j =0;    (0907)
